@@ -25,12 +25,13 @@ def index(request):
 
 def profile(request, username):
     username = SomeUser.objects.get(username=username)
-    # tweet_total = len(Tweet.objects.filter(author= username))
+    isFollowing = username in list(request.user.following.all())
     data = {
         'username': username,
         'tweet_total': len(Tweet.objects.filter(author= username)),
         'following': len(username.following.all()),
-        'feed': list(Tweet.objects.filter(author= username))
+        'feed': list(Tweet.objects.filter(author= username)),
+        'isFollowing' : isFollowing
     }
     return render(request, 'profile.html', {'data':data})
 
@@ -56,3 +57,14 @@ def tweetadd(request):
 
     form = TweetAddForm()
     return render(request, html, {'form': form})
+
+def follow(request, friend):
+    following = list(request.user.following.all())
+    friendObj = SomeUser.objects.get(username=friend)
+    if friendObj in following:
+        request.user.following.remove(friendObj)
+        request.user.save()
+    else:
+        request.user.following.add(friendObj)
+        request.user.save()
+    return HttpResponseRedirect('/'+friend)

@@ -8,6 +8,19 @@
     <br>
     Following: {{data.following}}
     <br>
+    {%if data.isFollowing == True%}
+    <a href='{% url 'follow' friend=data.username %}'>
+        <button>unfollow</button>
+    </a>
+    {%else%}
+    <a href='{% url 'follow' friend=data.username %}'>
+        <button>follow</button>
+    </a>
+    {%endif%}
+    <br>
+  
+
+    <br>
     <ul>
         {% for item in data.feed%}
         <li>
