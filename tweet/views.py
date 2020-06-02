@@ -5,6 +5,7 @@ from tweet.forms import TweetAddForm
 from notification.models import Notification
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+import re
 
 @login_required
 def index(request):
@@ -56,6 +57,18 @@ def tweetadd(request):
                 body = data['body'],
                 author = request.user
             )
+            txt = data['body']
+            notify = re.findall(r'\@\w*',txt)
+            for item in notify:
+                try:
+                    notifyee = SomeUser.objects.get(username=item[1:])
+                except SomeModel.DoesNotExist:
+                    notifyee = None
+                if notifyee != None:
+                    Notification.objects.create(
+                        notifyee = notifyee,
+                        tweet = Tweet.objects.last()
+                    )
             return HttpResponseRedirect('/')
 
     form = TweetAddForm()
