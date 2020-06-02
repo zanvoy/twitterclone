@@ -2,21 +2,11 @@
 <a href='/logout/'>logout</a>
 
 <br>
-<a href=''>home</a>
+<a href='/'>home</a>
 <a href='/tweetadd/'>tweet</a> 
-<a href='/profile/'>profile</a>
+<a href='{% url 'profile' username=request.user.username %}'>profile</a>
 <a href='/notification/'>notifications</a>
 <br>
 
 {% block content%}
 {% endblock %}
-<!-- <br>
-<ul> -->
-<!-- 
-    {% for i in data%}
-        <li>
-            <a href='{% url 'recipe' id=i.id %}'>{{ i.title }}</a>
-        </li>
-    {% endfor%} -->
-<!-- </ul> -->
-

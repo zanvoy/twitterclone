@@ -2,14 +2,14 @@
 
 {%block content%}
     <br>
-    {{username}}
+    {{data.username}}
     <br>
-    Tweets: {{tweet_total}}
+    Tweets: {{data.tweet_total}}
     <br>
-    Following: {{following}}
+    Following: {{data.following}}
     <br>
     <ul>
-        {% for item in feed%}
+        {% for item in data.feed%}
         <li>
             {{item.author}} || {{item.date}}
         </li>
