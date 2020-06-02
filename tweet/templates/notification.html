@@ -1,7 +1,6 @@
 {%extends 'base_page.html'%}
 
 {%block content%}
-
     <br>
     {{username}}
     <br>
@@ -12,10 +11,11 @@
     <ul>
         {% for item in feed%}
         <li>
-            <a href='{% url 'profile' username=item.author %}'>{{item.author}}</a> || <a href='{% url 'tweet' id=item.id %}'>{{item.date}}</a>
+            <a href='{% url 'profile' username=item.tweet.author %}'>{{item.tweet.author}}</a> || <a href='{% url 'tweet' id=item.tweet.id %}'>{{item.tweet.date}}</a>
+
         </li>
         <li>
-            {{item.body}}
+            {{item.tweet.body}}
         </li>
         <br>
         {% endfor%}

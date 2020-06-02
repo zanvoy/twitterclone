@@ -5,8 +5,7 @@
 <a href='/'>home</a>
 <a href='/tweetadd/'>tweet</a> 
 <a href='{% url 'profile' username=request.user.username %}'>profile</a>
-<a href='/notification/'>notifications</a>
-<br>
+<a href='/notification/'>{{notification_total}} notifications</a>
 
 {% block content%}
 {% endblock %}

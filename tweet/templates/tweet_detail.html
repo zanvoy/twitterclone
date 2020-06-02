@@ -1,0 +1,13 @@
+{%extends 'base_page.html'%}
+
+{%block content%}
+    <ul>
+        <li>
+            <a href='{% url 'profile' username=tweet.author %}'>{{tweet.author}}</a> || {{tweet.date}}
+        </li>
+        <li>
+            {{tweet.body}}
+        </li>
+        <br>
+    </ul>
+{%endblock%}

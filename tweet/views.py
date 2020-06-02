@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse, HttpResponseRedirect
 from tweet.models import Tweet
 from twitteruser.models import SomeUser
 from tweet.forms import TweetAddForm
+from notification.models import Notification
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -15,11 +16,12 @@ def index(request):
         feed.extend(Tweet.objects.filter(author= item))
     feed.sort(key=lambda r: r.date, reverse=True)
 
+
     data = {
         'username': username,
         'tweet_total': len(Tweet.objects.filter(author= request.user)),
         'following': len(following),
-        'feed': feed,
+        'feed': feed
     }
     return render(request, 'index.html',data)
 
@@ -35,9 +37,10 @@ def profile(request, username):
     }
     return render(request, 'profile.html', {'data':data})
 
+@login_required
 def tweet_detail(request, id):
-    tweet = Tweet.objects.filter(id=id)
-    return render(request, 'recipe.html', {'tweet': tweet})
+    tweet = Tweet.objects.get(id=id)
+    return render(request, 'tweet_detail.html', {'tweet': tweet})
 
 
 
@@ -68,3 +71,22 @@ def follow(request, friend):
         request.user.following.add(friendObj)
         request.user.save()
     return HttpResponseRedirect('/'+friend)
+
+@login_required
+def notification(request):
+    username = request.user.username
+    feed = []
+    feed.extend(list(Notification.objects.filter(notifyee = request.user)))
+    feed.sort(key=lambda r: r.tweet.date, reverse=True)
+    following = request.user.following.all()
+
+
+    data = {
+        'username': username,
+        'tweet_total': len(Tweet.objects.filter(author= request.user)),
+        'following': len(following),
+        'feed': feed,
+    }
+    Notification.objects.filter(notifyee = request.user).delete()
+    return render(request, 'notification.html',data)
+

@@ -24,7 +24,8 @@
     <ul>
         {% for item in data.feed%}
         <li>
-            {{item.author}} || {{item.date}}
+            <a href='{% url 'profile' username=item.author %}'>{{item.author}}</a> || <a href='{% url 'tweet' id=item.id %}'>{{item.date}}</a>
+
         </li>
         <li>
             {{item.body}}
