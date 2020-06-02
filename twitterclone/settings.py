@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tweet.apps.TweetConfig',
+    'twitteruser.apps.TwitteruserConfig',
+    'authentication.apps.AuthenticationConfig',
+    'notification.apps.NotificationConfig'
 ]
 
 MIDDLEWARE = [
@@ -62,10 +66,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'tweet.apps.TweetConfig',
-                'twitteruser.apps.TwitteruserConfig',
-                'authentication.apps.AuthenticationConfig',
-                'notification.apps.NotificationConfig'
             ],
         },
     },
@@ -125,4 +125,4 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
 
-# AUTH_USER_MODEL = 'bugApp.SomeUser'
+AUTH_USER_MODEL = 'twitteruser.SomeUser'

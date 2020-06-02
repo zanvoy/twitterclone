@@ -1,0 +1,22 @@
+{%extends 'base_page.html'%}
+
+{%block content%}
+    <br>
+    {{username}}
+    <br>
+    Tweets: {{tweet_total}}
+    <br>
+    Following: {{following}}
+    <br>
+    {{feed}}
+    <ul>
+        {% for item in feed%}
+        <li>
+            {{item.author}} || {{item.date}}
+        </li>
+        <li>
+            {{item.body}}
+        </li>
+        {% endfor%}
+    </ul>
+{%endblock%}
