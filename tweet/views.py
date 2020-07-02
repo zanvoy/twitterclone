@@ -28,7 +28,10 @@ def index(request):
 
 def profile(request, username):
     username = SomeUser.objects.get(username=username)
-    isFollowing = username in list(request.user.following.all())
+    if request.user.is_authenticated:
+        isFollowing = username in list(request.user.following.all())
+    else:
+        isFollowing = None
     data = {
         'username': username,
         'tweet_total': len(Tweet.objects.filter(author= username)),
@@ -38,7 +41,7 @@ def profile(request, username):
     }
     return render(request, 'profile.html', {'data':data})
 
-@login_required
+
 def tweet_detail(request, id):
     tweet = Tweet.objects.get(id=id)
     return render(request, 'tweet_detail.html', {'tweet': tweet})

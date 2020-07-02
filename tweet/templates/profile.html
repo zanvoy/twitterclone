@@ -12,7 +12,7 @@
     <a href='{% url 'follow' friend=data.username %}'>
         <button>unfollow</button>
     </a>
-    {%else%}
+    {%elif data.isFollowing == False%}
     <a href='{% url 'follow' friend=data.username %}'>
         <button>follow</button>
     </a>
